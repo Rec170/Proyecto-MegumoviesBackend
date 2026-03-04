@@ -1,0 +1,16 @@
+const mongoose = require('mongoose');
+
+async function connectDB() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error('MONGODB_URI no está configurada');
+
+  mongoose.set('strictQuery', true);
+
+  await mongoose.connect(uri, {
+    dbName: process.env.MONGODB_DBNAME || undefined
+  });
+
+  console.log('✅ MongoDB conectado');
+}
+
+module.exports = { connectDB };
